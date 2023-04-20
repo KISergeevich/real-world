@@ -1,3 +1,4 @@
+import { ApiService } from "./api.service";
 import { AppModel } from "./app.model";
 import { AppView } from "./app.view";
 
@@ -7,7 +8,7 @@ export class AppController {
 
     constructor(element) {
         this.model = new AppModel();
-
+        this.api = new ApiService();
         this.view = new AppView(element);
 
         this.view.subscribeSwitchToSignup(this.onSwitchToSignup.bind(this));
@@ -20,7 +21,7 @@ export class AppController {
     }
 
     onSwitchToSignup() {
-        this.model.state = 'signup';
+        this.model.state = "signup";
         this.view.refresh(this.model);
     }
 
@@ -36,6 +37,11 @@ export class AppController {
     }
 
     onSignup(name, email, password) {
-        console.log(name, email, password);
+        this.api.signup(name, email, password)
+            .then((user) => {
+                this.model.token = user.token;
+                this.model.state = "auth";
+                this.view.refresh(this.model);
+            });
     }
 }
