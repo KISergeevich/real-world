@@ -7,7 +7,7 @@ export class AppView {
     switchToLoginCallback;
     switchToLogoutCallback;
     signupCallback;
-
+    loginCalback;
 
     constructor(element) {
         this.element = element;
@@ -146,13 +146,13 @@ export class AppView {
         login.append(body);
         const footer = newElement("div", "form__footer");
         const submit = newElement("button", "form__button", "submit");
-        // submit.addEventListener("click", () => {
-        //     const login = loginInput.value;
-        //     const password = passwordInput.value;
+        submit.addEventListener("click", () => {
+            const login = loginInput.value;
+            const password = passwordInput.value;
 
-        //     this.emitRegistration(login, password);
+            this.emitLogin(login, password);
 
-        // })
+        })
         footer.append(submit);
         login.append(footer);
         return login;
@@ -168,6 +168,14 @@ export class AppView {
         }
     }
 
+    subscribeLogin(calback) {
+        this.loginCalback = calback;
+    }
 
+    emitLogin(email, password) {
+        if (this.loginCalback !== undefined) {
+            this.loginCalback(email, password);
+        }
+    }
 
 }

@@ -15,6 +15,8 @@ export class AppController {
         this.view.subscribeSwitchToLogin(this.onSwitchToLogin.bind(this));
         this.view.subscribeSwitchToLogout(this.onSwitchToLogout.bind(this));
         this.view.subscribeSignup(this.onSignup.bind(this));
+        this.view.subscribeLogin(this.onLogin.bind(this));
+
 
         this.view.refresh(this.model);
 
@@ -44,4 +46,14 @@ export class AppController {
                 this.view.refresh(this.model);
             });
     }
+
+    onLogin(email, password) {
+        this.api.login(email, password)
+            .then((user) => {
+                this.model.token = user.token;
+                this.model.state = "auth";
+                this.view.refresh(this.model);
+            });
+    }
+
 }
