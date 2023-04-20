@@ -49,7 +49,16 @@ export class AppView {
     }
 
     createMainElement(model) {
-        const main = newElement("section", "main", model.state);
+        const main = newElement("section", "main");
+        if (model.state === "signup") {
+            main.append(this.createSignupElement());
+        }
+        if (model.state === "login") {
+            main.append(this.createLoginElement());
+        }
+        if (model.state === "auth") {
+
+        }
         return main;
     }
 
@@ -81,6 +90,71 @@ export class AppView {
         if (this.switchToLogoutCallback !== undefined) {
             this.switchToLogoutCallback();
         }
+    }
+
+    createSignupElement() {
+        const signup = newElement("section", "form");
+        const header = newElement("div", "form__header", "Registration");
+        signup.append(header);
+        const body = newElement("div", "form__body");
+        const nameLabel = newElement("div", "form-label", "Name:");
+        body.append(nameLabel);
+        const nameInput = newElement("input", "form-input");
+        body.append(nameInput);
+        const emailLabel = newElement("div", "form-label", "Email:");
+        body.append(emailLabel);
+        const emailInput = newElement("input", "form-input");
+        body.append(emailInput);
+        const passwordLabel = newElement("div", "form-label", "Password:");
+        body.append(passwordLabel);
+        const passwordInput = newElement("input", "form-input");
+        body.append(passwordInput);
+        const confirmLabel = newElement("div", "form-label", "Confirm:");
+        body.append(confirmLabel);
+        const confirmInput = newElement("input", "form-input");
+        body.append(confirmInput);
+        signup.append(body);
+        const footer = newElement("div", "form__footer");
+        const submit = newElement("button", "form__button", "submit");
+        // submit.addEventListener("click", () => {
+        //     const name = nameInput.value;
+        //     const email = emailInput.value;
+        //     const password = passwordInput.value;
+
+        //     this.emitRegistration(name, email, password);
+
+        // })
+        footer.append(submit);
+        signup.append(footer);
+        return signup;
+    }
+
+    createLoginElement() {
+        const login = newElement("section", "form");
+        const header = newElement("div", "form__header", "Login");
+        login.append(header);
+        const body = newElement("div", "form__body");
+        const loginLabel = newElement("div", "form-label", "Login:");
+        body.append(loginLabel);
+        const loginInput = newElement("input", "form-input");
+        body.append(loginInput);
+        const passwordLabel = newElement("div", "form-label", "Password:");
+        body.append(passwordLabel);
+        const passwordInput = newElement("input", "form-input");
+        body.append(passwordInput);
+        login.append(body);
+        const footer = newElement("div", "form__footer");
+        const submit = newElement("button", "form__button", "submit");
+        // submit.addEventListener("click", () => {
+        //     const login = loginInput.value;
+        //     const password = passwordInput.value;
+
+        //     this.emitRegistration(login, password);
+
+        // })
+        footer.append(submit);
+        login.append(footer);
+        return login;
     }
 
 
