@@ -13,7 +13,7 @@ export class AppController {
         this.view.subscribeSwitchToSignup(this.onSwitchToSignup.bind(this));
         this.view.subscribeSwitchToLogin(this.onSwitchToLogin.bind(this));
         this.view.subscribeSwitchToLogout(this.onSwitchToLogout.bind(this));
-
+        this.view.subscribeSignup(this.onSignup.bind(this));
 
         this.view.refresh(this.model);
 
@@ -35,4 +35,7 @@ export class AppController {
         this.view.refresh(this.model);
     }
 
+    onSignup(name, email, password) {
+        console.log(name, email, password);
+    }
 }

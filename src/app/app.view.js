@@ -6,6 +6,7 @@ export class AppView {
     switchToSignupCallback;
     switchToLoginCallback;
     switchToLogoutCallback;
+    signupCallback;
 
 
     constructor(element) {
@@ -116,14 +117,14 @@ export class AppView {
         signup.append(body);
         const footer = newElement("div", "form__footer");
         const submit = newElement("button", "form__button", "submit");
-        // submit.addEventListener("click", () => {
-        //     const name = nameInput.value;
-        //     const email = emailInput.value;
-        //     const password = passwordInput.value;
+        submit.addEventListener("click", () => {
+            const name = nameInput.value;
+            const email = emailInput.value;
+            const password = passwordInput.value;
 
-        //     this.emitRegistration(name, email, password);
+            this.emitSignup(name, email, password);
 
-        // })
+        })
         footer.append(submit);
         signup.append(footer);
         return signup;
@@ -156,6 +157,17 @@ export class AppView {
         login.append(footer);
         return login;
     }
+
+    subscribeSignup(callback) {
+        this.signupCallback = callback;
+    }
+
+    emitSignup(name, email, password) {
+        if (this.signupCallback !== undefined) {
+            this.signupCallback(name, email, password);
+        }
+    }
+
 
 
 }
